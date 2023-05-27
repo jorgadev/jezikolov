@@ -1,13 +1,13 @@
 import { createContext, useReducer, useEffect } from "react";
-import { DISPATCH_ACTIONS } from "../constants";
+import { USER_LOGIN, USER_LOGOUT } from "@constants/dispatchActions";
 
 export const StoreContext = createContext();
 
 export const storeReducer = (state, action) => {
   switch (action.type) {
-    case DISPATCH_ACTIONS.USER_LOGIN:
+    case USER_LOGIN:
       return { ...state, user: action.payload };
-    case DISPATCH_ACTIONS.USER_LOGOUT:
+    case USER_LOGOUT:
       return { ...state, user: null };
     default:
       return state;
@@ -23,7 +23,7 @@ export const StoreContextProvider = ({ children }) => {
     const userToken = localStorage.getItem("user");
 
     if (userToken) {
-      dispatch({ type: DISPATCH_ACTIONS.USER_LOGIN, payload: response.data });
+      dispatch({ type: USER_LOGIN, payload: response.data });
     }
   }, []);
 

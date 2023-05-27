@@ -1,4 +1,4 @@
-import { StoreContextProvider } from "context/StoreContext";
+import { StoreContextProvider } from "@context/StoreContext";
 
 function MyApp({ Component, pageProps }) {
   return (

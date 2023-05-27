@@ -1,15 +1,14 @@
 import React from "react";
 
-import { useRouter } from "next/router";
-
-import Navbar from "components/Navbar";
+import Navbar from "@components/Navbar";
+import Landing from "@components/Landing";
 
 function Index() {
   return (
-    <div>
+    <React.Fragment>
       <Navbar />
-      <main>Predstavitveni page</main>
-    </div>
+      <Landing />
+    </React.Fragment>
   );
 }
 

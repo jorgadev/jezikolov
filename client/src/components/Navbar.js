@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
-import { StoreContext } from "context/StoreContext";
-
 import { useRouter } from "next/router";
-import { DISPATCH_ACTIONS } from "../constants";
 import Link from "next/link";
+
+import { StoreContext } from "@context/StoreContext";
+import { USER_LOGOUT } from "@constants/dispatchActions";
 
 function Navbar() {
   const router = useRouter();
@@ -14,7 +14,7 @@ function Navbar() {
     router.push("/login");
   };
   const logoutHandler = () => {
-    dispatch({ type: DISPATCH_ACTIONS.USER_LOGOUT });
+    dispatch({ type: USER_LOGOUT });
   };
 
   return (
