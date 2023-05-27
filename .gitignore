@@ -1,0 +1,32 @@
+# Next.js
+node_modules
+.next
+out
+
+# IDE/Editor
+.idea
+.vscode
+*.iml
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+
+# Build artifacts
+build
+dist
+
+# Cache and dependencies
+.npm
+.pnpm
+yarn.lock
+.pnpm-lock.yaml
+package-lock.json
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
