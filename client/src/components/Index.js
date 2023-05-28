@@ -1,12 +1,12 @@
 import React from "react";
 
 import Navbar from "@components/Navbar";
-import Landing from "@components/Landing";
+import Landing from "@components/Landing/Landing";
 
 function Index() {
   return (
     <React.Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
       <Landing />
     </React.Fragment>
   );
