@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Navbar from "@components/Navbar";
+import { StoreContext } from "@context/StoreContext";
+import { SET_USER } from "@constants/dispatchActions";
+import { useRouter } from "next/router";
 
 function Login() {
+  const router = useRouter();
+  const { user, dispatch } = useContext(StoreContext);
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -32,13 +37,20 @@ function Login() {
       })
       .then((res) => {
         // Handle the response
-        console.log(res);
+        const data = res.data.user;
+        const token = res.data.user.token;
+        localStorage.setItem("userToken", token);
+        dispatch({ type: SET_USER, payload: data });
       })
       .catch((err) => {
         // Handle the error
-        console.error(err);
+        setError(err.response.data.message);
       });
   };
+
+  if (user) {
+    router.push("/");
+  }
 
   return (
     <React.Fragment>
@@ -69,7 +81,7 @@ function Login() {
           }
         />
         <br />
-        {error && <p>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <Link href="/register">Register</Link>
         <br />
         <button onClick={loginHandler}>Login</button>

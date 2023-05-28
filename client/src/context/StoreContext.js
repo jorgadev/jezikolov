@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
-import { USER_LOGIN, USER_LOGOUT } from "@constants/dispatchActions";
+import { USER_LOGIN, USER_LOGOUT, SET_USER } from "@constants/dispatchActions";
+import axios from "axios";
 
 export const StoreContext = createContext();
 
@@ -9,6 +10,8 @@ export const storeReducer = (state, action) => {
       return { ...state, user: action.payload };
     case USER_LOGOUT:
       return { ...state, user: null };
+    case SET_USER:
+      return { ...state, user: action.payload };
     default:
       return state;
   }
@@ -20,12 +23,29 @@ export const StoreContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const userToken = localStorage.getItem("user");
+    const userToken = localStorage.getItem("userToken");
 
     if (userToken) {
-      dispatch({ type: USER_LOGIN, payload: response.data });
+      axios
+        .get("http://localhost/user.php", {
+          params: { token: userToken },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          dispatch({ type: USER_LOGIN, payload: response.data });
+        })
+        .catch((error) => {
+          // Obdelava napake pri pridobivanju podatkov uporabnika
+          console.error("Napaka pri pridobivanju podatkov uporabnika:", error);
+          // Odjava uporabnika, če žeton ni veljaven
+          dispatch({ type: USER_LOGOUT });
+        });
     }
   }, []);
+
+  console.log("StoreContext", state);
 
   return (
     <StoreContext.Provider value={{ ...state, dispatch }}>

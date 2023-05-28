@@ -14,6 +14,7 @@ function Navbar() {
     router.push("/login");
   };
   const logoutHandler = () => {
+    localStorage.removeItem("userToken");
     dispatch({ type: USER_LOGOUT });
   };
 
