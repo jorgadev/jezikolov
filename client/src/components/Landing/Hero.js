@@ -11,9 +11,20 @@ import {
   createIcon,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { StoreContext } from "@context/StoreContext";
 
 export default function Hero() {
   const router = useRouter();
+  const { user } = useContext(StoreContext);
+
+  const handleClick = () => {
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <>
@@ -54,7 +65,7 @@ export default function Hero() {
             position={"relative"}
           >
             <Button
-              onClick={() => router.push("/login")}
+              onClick={handleClick}
               colorScheme={"green"}
               bg={"green.400"}
               rounded={"full"}
@@ -63,7 +74,7 @@ export default function Hero() {
                 bg: "green.500",
               }}
             >
-              Prijava
+              {user ? "Nadzorna plošča" : "Prijava"}
             </Button>
             <Box>
               <Icon
@@ -82,7 +93,7 @@ export default function Hero() {
                 top={"-15px"}
                 transform={"rotate(10deg)"}
               >
-                Brezplačno!
+                {user ? "Pojdi v jezikolov!" : "Brezplačno!"}
               </Text>
             </Box>
           </Stack>

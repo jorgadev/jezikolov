@@ -71,7 +71,7 @@ function Register() {
   };
 
   if (user) {
-    router.push("/");
+    router.push("/dashboard");
   }
 
   return (
