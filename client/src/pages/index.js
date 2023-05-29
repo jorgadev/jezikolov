@@ -1,3 +1,3 @@
-import Index from "@components/Index";
+import Landing from "@components/Landing/Landing";
 
-export default Index;
+export default Landing;
