@@ -10,8 +10,11 @@ import {
   useColorModeValue,
   createIcon,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 export default function Hero() {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -51,6 +54,7 @@ export default function Hero() {
             position={"relative"}
           >
             <Button
+              onClick={() => router.push("/login")}
               colorScheme={"green"}
               bg={"green.400"}
               rounded={"full"}
