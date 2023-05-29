@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import Navbar from "@components/Navbar";
 import { StoreContext } from "@context/StoreContext";
 import { SET_USER } from "@constants/dispatchActions";
 import { useRouter } from "next/router";

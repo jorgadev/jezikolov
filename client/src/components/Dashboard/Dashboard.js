@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import Sidebar from "./Sidebar";
 
 function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <React.Fragment>
+      <Sidebar />
+    </React.Fragment>
+  );
 }
 
 export default Dashboard;
