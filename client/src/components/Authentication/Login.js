@@ -1,9 +1,4 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
-import { StoreContext } from "@context/StoreContext";
-import { SET_USER } from "@constants/dispatchActions";
-import { useRouter } from "next/router";
-import NextLink from "next/link";
 
 import {
   Button,
@@ -14,11 +9,14 @@ import {
   Link,
   Stack,
   Image,
-  Alert,
-  AlertIcon,
-  AlertDescription,
   useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import NextLink from "next/link";
+
+import { StoreContext } from "@context/StoreContext";
+import { SET_USER } from "@constants/dispatchActions";
 
 function Login() {
   const router = useRouter();
@@ -58,23 +56,19 @@ function Login() {
     }
 
     setIsLoading(true);
-
     axios
       .post("http://localhost/login.php", {
         email: state.email,
         password: state.password,
       })
       .then((res) => {
-        // Handle the response
         const data = res.data.user;
         const token = res.data.user.token;
         localStorage.setItem("userToken", token);
         dispatch({ type: SET_USER, payload: data });
-
         router.push("/dashboard");
       })
       .catch((err) => {
-        // Handle the error
         toast({
           title: "Napaka",
           description: err.response.data.message,
@@ -135,10 +129,12 @@ function Login() {
             <Button
               onClick={loginHandler}
               colorScheme={"blue"}
+              bg={"blue.400"}
               variant={"solid"}
               isLoading={isLoading}
               loadingText="Prijava..."
               disabled={isLoading}
+              rounded={"full"}
             >
               Prijavi se
             </Button>

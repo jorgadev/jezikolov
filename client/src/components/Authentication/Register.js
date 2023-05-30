@@ -14,9 +14,6 @@ import {
   Link,
   Stack,
   Image,
-  Alert,
-  AlertIcon,
-  AlertDescription,
   useToast,
 } from "@chakra-ui/react";
 
@@ -30,7 +27,6 @@ function Register() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const toast = useToast();
 
@@ -73,7 +69,6 @@ function Register() {
     }
 
     setIsLoading(true);
-
     axios
       .post("http://localhost/register.php", {
         username: state.username,
@@ -81,16 +76,13 @@ function Register() {
         password: state.password,
       })
       .then((res) => {
-        // Handle the response
         const data = res.data.user;
         const token = res.data.user.token;
         localStorage.setItem("userToken", token);
         dispatch({ type: SET_USER, payload: data });
-
         router.push("/dashboard");
       })
       .catch((err) => {
-        // Handle the error
         toast({
           title: "Napaka",
           description: err.response.data.message,
@@ -165,7 +157,9 @@ function Register() {
             <Button
               onClick={registerHandler}
               colorScheme={"blue"}
+              bg={"blue.500"}
               variant={"solid"}
+              rounded={"full"}
               isLoading={isLoading}
               loadingText="Registracija..."
               disabled={isLoading}

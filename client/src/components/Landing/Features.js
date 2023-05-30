@@ -40,7 +40,7 @@ export default function Features() {
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
         <Stack spacing={4}>
           <Heading>Medsebojno učenje</Heading>
-          <Text color={"gray.500"} fontSize={"lg"}>
+          <Text color={"gray.500"} fontSize={{ base: "m", md: "lg" }}>
             Naša vizija je graditi globalno skupnost, kjer se lahko posamezniki
             medsebojno učijo in izmenjujejo maternje jezike, raziskujejo nove
             kulture ter se neprestano razvijajo jezikovno in osebnostno.
