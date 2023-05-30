@@ -29,9 +29,9 @@ import { useRouter } from "next/router";
 
 const LinkItems = [
   { name: "Domov", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
+  // { name: "Trending", icon: FiTrendingUp },
+  // { name: "Explore", icon: FiCompass },
+  // { name: "Favourites", icon: FiStar },
   { name: "Settings", icon: FiSettings },
 ];
 
@@ -57,9 +57,7 @@ export default function SimpleSidebar({ children }) {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <Box ml={{ base: 0, md: 60 }}>{children}</Box>
     </Box>
   );
 }
@@ -94,6 +92,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </NavItem>
       ))}
       <NavItem
+        href="/"
         onClick={() => {
           localStorage.removeItem("userToken");
           dispatch({ type: USER_LOGOUT });
@@ -107,10 +106,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
     </Box>
   );
 };
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, href, onClick, ...rest }) => {
   return (
     <Link
-      href="#"
+      onClick={onClick}
+      href={href}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >

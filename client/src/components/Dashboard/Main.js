@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Box, Flex, Alert, AlertIcon } from "@chakra-ui/react";
 import { StoreContext } from "@context/StoreContext";
+import Choose from "./Choose";
 
 function Main() {
   const { user } = useContext(StoreContext);
@@ -11,6 +12,7 @@ function Main() {
         <AlertIcon />
         Dobrodošli, {user.username}!
       </Alert>
+      <Choose />
     </Box>
   );
 }
