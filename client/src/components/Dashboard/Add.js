@@ -65,14 +65,12 @@ export default function Add() {
   };
 
   const handleSubmit = () => {
-    // Preverjanje, ali so vsa polja izpolnjena
     if (
       !formData.nativeLanguage ||
       !formData.learningLanguage ||
       !selectedDate ||
       !selectedTime
     ) {
-      // Obvestilo o manjkajočih podatkih
       toast({
         title: "Manjkajoči podatki",
         description: "Prosimo, izpolnite vsa polja.",
@@ -83,9 +81,6 @@ export default function Add() {
       return;
     }
 
-    // Preverjanje pravilnosti podatkov (dodatna preverjanja glede na vaše zahteve)
-
-    // Priprava podatkov za pošiljanje
     const data = {
       nativeLanguage: formData.nativeLanguage,
       learningLanguage: formData.learningLanguage,
@@ -95,11 +90,9 @@ export default function Add() {
       userId: user.id,
     };
 
-    // Pošiljanje zahteve s pomočjo Axiosa
     axios
       .post("http://localhost/language_exchange.php", data)
       .then((response) => {
-        // Uspešna zahteva
         toast({
           title: "Uspešno shranjeni podatki",
           status: "success",
@@ -109,7 +102,6 @@ export default function Add() {
         clearForm();
       })
       .catch((error) => {
-        // Napaka pri zahtevi
         toast({
           title: "Napaka pri shranjevanju podatkov",
           description: error.message,

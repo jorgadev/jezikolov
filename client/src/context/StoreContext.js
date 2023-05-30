@@ -37,9 +37,7 @@ export const StoreContextProvider = ({ children }) => {
           dispatch({ type: USER_LOGIN, payload: response.data });
         })
         .catch((error) => {
-          // Obdelava napake pri pridobivanju podatkov uporabnika
           console.error("Napaka pri pridobivanju podatkov uporabnika:", error);
-          // Odjava uporabnika, če žeton ni veljaven
           dispatch({ type: USER_LOGOUT });
         });
     }

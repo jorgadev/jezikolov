@@ -11,17 +11,9 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiArrowLeft,
-  FiPlus,
-} from "react-icons/fi";
+import { FiHome, FiMenu, FiArrowLeft, FiPlus } from "react-icons/fi";
 
 import NextLink from "next/link";
 import { StoreContext } from "@context/StoreContext";
@@ -31,13 +23,17 @@ import { useRouter } from "next/router";
 const LinkItems = [
   { name: "Domov", icon: FiHome, href: "/dashboard" },
   { name: "Dodaj", icon: FiPlus, href: "/add-offer" },
-  // { name: "Settings", icon: FiSettings },
 ];
 
-export default function SimpleSidebar({ children }) {
+export default function Sidebar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box
+      minH={!isMobile ? "100vh" : ""}
+      bg={useColorModeValue("gray.100", "gray.900")}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}

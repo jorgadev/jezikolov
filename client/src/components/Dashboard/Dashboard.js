@@ -1,15 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { Flex, useMediaQuery } from "@chakra-ui/react";
+
+import { StoreContext } from "@context/StoreContext";
+
 import Sidebar from "./Sidebar";
 import Main from "./Main";
-import { StoreContext } from "@context/StoreContext";
 
 function Dashboard() {
   const { user } = useContext(StoreContext);
 
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   return (
     user && (
-      <Flex height="100vh">
+      <Flex height="100vh" flexDirection={isMobile ? "column" : "row"}>
         <Sidebar />
         <Main />
       </Flex>

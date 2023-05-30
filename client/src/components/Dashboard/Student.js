@@ -91,11 +91,15 @@ const Student = () => {
                     <Heading as="h3" size="md">
                       {offer.native_language} → {offer.learning_language}
                     </Heading>
-                    <Text color="gray.500">Opis ({offer.username}):</Text>
-                    <Text>{offer.description}</Text>
-
+                    {offer.description ? (
+                      <React.Fragment>
+                        <Text color="gray.500">Opis ({offer.username}):</Text>
+                        <Text>{offer.description}</Text>
+                      </React.Fragment>
+                    ) : (
+                      ""
+                    )}
                     <Text color="gray.500">Datum in čas:</Text>
-
                     <Text>
                       {`${offer.availability_date}, ${offer.availability_time}`}
                     </Text>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, Flex, Alert, AlertIcon } from "@chakra-ui/react";
+import { Box, Alert, AlertIcon } from "@chakra-ui/react";
 import { StoreContext } from "@context/StoreContext";
 import Choose from "./Choose";
 import { useRouter } from "next/router";
