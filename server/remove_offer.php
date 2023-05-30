@@ -1,7 +1,9 @@
 <?php
 require_once "db_connect.php";
 
-$offer_id = $_GET["id"];
+$data = json_decode(file_get_contents("php://input"), true);
+
+$offer_id = $data["offerId"];
 
 $query = "DELETE FROM language_exchange WHERE id = $offer_id";
 $result = mysqli_query($conn, $query);

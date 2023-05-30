@@ -1,7 +1,9 @@
 <?php
 require_once "db_connect.php";
 
-$offer_id = $_GET["id"];
+$data = json_decode(file_get_contents("php://input"), true);
+
+$offer_id = $data["id"];
 
 $query = "UPDATE language_exchange SET is_reserved = 0 WHERE id = $offer_id";
 $result = mysqli_query($conn, $query);
