@@ -13,7 +13,7 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { FiHome, FiMenu, FiArrowLeft, FiPlus } from "react-icons/fi";
+import { FiHome, FiMenu, FiArrowLeft, FiPlus, FiStar } from "react-icons/fi";
 
 import NextLink from "next/link";
 import { StoreContext } from "@context/StoreContext";
@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 const LinkItems = [
   { name: "Domov", icon: FiHome, href: "/dashboard" },
   { name: "Dodaj", icon: FiPlus, href: "/add-offer" },
+  { name: "Ocene", icon: FiStar, href: "/ratings" },
 ];
 
 export default function Sidebar({ children }) {

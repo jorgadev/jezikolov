@@ -4,6 +4,7 @@ import { StoreContext } from "@context/StoreContext";
 import Choose from "./Choose";
 import { useRouter } from "next/router";
 import Add from "./Add";
+import Ratings from "./Ratings";
 
 function Main() {
   const { user } = useContext(StoreContext);
@@ -16,6 +17,9 @@ function Main() {
       break;
     case "/add-offer":
       Component = Add;
+      break;
+    case "/ratings":
+      Component = Ratings;
       break;
     default:
       break;
