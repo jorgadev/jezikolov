@@ -34,9 +34,10 @@ const Student = () => {
 
   const reserveOffer = async (offerId) => {
     try {
-      const response = await axios.get(
-        `http://localhost/reserve_offer.php?id=${offerId}&user_id=${user.id}`
-      );
+      const response = await axios.post("http://localhost/reserve_offer.php", {
+        id: offerId,
+        user_id: user.id,
+      });
       fetchOffers();
       toast({
         title: response.data,
@@ -51,7 +52,9 @@ const Student = () => {
 
   const cancelReservation = async (offerId) => {
     try {
-      await axios.get(`http://localhost/cancel_reservation.php?id=${offerId}`);
+      await axios.post("http://localhost/cancel_reservation.php", {
+        id: offerId,
+      });
       fetchOffers();
       toast({
         title: "Rezervacija odpovedana",
@@ -63,7 +66,6 @@ const Student = () => {
       console.error(error);
     }
   };
-
   return (
     <TabPanel>
       <Box>

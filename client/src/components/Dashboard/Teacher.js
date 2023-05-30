@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import {
   Box,
-  Button,
   Heading,
   Text,
   VStack,
@@ -35,7 +34,9 @@ const Teacher = () => {
 
   const removeOffer = async (offerId) => {
     try {
-      await axios.post(`http://localhost/remove_offer.php?id=${offerId}`);
+      await axios.post("http://localhost/remove_offer.php", {
+        offerId,
+      });
       fetchOffers();
       toast({
         title: "Ponudba odstranjena",
