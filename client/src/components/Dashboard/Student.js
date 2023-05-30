@@ -34,12 +34,12 @@ const Student = () => {
 
   const reserveOffer = async (offerId) => {
     try {
-      await axios.get(
+      const response = await axios.get(
         `http://localhost/reserve_offer.php?id=${offerId}&user_id=${user.id}`
       );
       fetchOffers();
       toast({
-        title: "Ponudba rezervirana",
+        title: response.data,
         status: "success",
         duration: 3000,
         isClosable: true,

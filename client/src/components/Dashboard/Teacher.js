@@ -24,7 +24,7 @@ const Teacher = () => {
 
   const fetchOffers = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         `http://localhost/get_user_offers.php?user_id=${user.id}`
       );
       setOffers(response.data);
