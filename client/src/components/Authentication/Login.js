@@ -17,6 +17,7 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
+  useToast,
 } from "@chakra-ui/react";
 
 function Login() {
@@ -26,22 +27,37 @@ function Login() {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [error, setError] = useState("");
+  const toast = useToast();
 
   const loginHandler = () => {
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!state.email || !emailRegex.test(state.email)) {
-      setError("Vnesite veljaven e-poštni naslov");
+      toast({
+        title: "Napaka",
+        description: "Vnesite veljaven e-poštni naslov",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       return;
     }
 
     // Password length validation
     if (!state.password || state.password.length < 8) {
-      setError("Geslo mora vsebovati vsaj 8 znakov");
+      toast({
+        title: "Napaka",
+        description: "Geslo mora vsebovati vsaj 8 znakov",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       return;
     }
+
+    setIsLoading(true);
 
     axios
       .post("http://localhost/login.php", {
@@ -54,10 +70,21 @@ function Login() {
         const token = res.data.user.token;
         localStorage.setItem("userToken", token);
         dispatch({ type: SET_USER, payload: data });
+
+        router.push("/dashboard");
       })
       .catch((err) => {
         // Handle the error
-        setError(err.response.data.message);
+        toast({
+          title: "Napaka",
+          description: err.response.data.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -109,16 +136,13 @@ function Login() {
               onClick={loginHandler}
               colorScheme={"blue"}
               variant={"solid"}
+              isLoading={isLoading}
+              loadingText="Prijava..."
+              disabled={isLoading}
             >
               Prijavi se
             </Button>
           </Stack>
-          {error && (
-            <Alert status="error">
-              <AlertIcon />
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
         </Stack>
       </Flex>
       <Flex flex={1}>

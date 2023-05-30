@@ -11,12 +11,10 @@ function Choose() {
       <TabList>
         <Tab>Učitelj</Tab>
         <Tab>Dijak</Tab>
-        <Tab>Dodaj +</Tab>
       </TabList>
       <TabPanels>
         <Teacher />
         <Student />
-        <Add />
       </TabPanels>
     </Tabs>
   );

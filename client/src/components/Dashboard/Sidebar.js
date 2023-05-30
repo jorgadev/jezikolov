@@ -20,6 +20,7 @@ import {
   FiSettings,
   FiMenu,
   FiArrowLeft,
+  FiPlus,
 } from "react-icons/fi";
 
 import NextLink from "next/link";
@@ -28,11 +29,9 @@ import { USER_LOGOUT } from "@constants/dispatchActions";
 import { useRouter } from "next/router";
 
 const LinkItems = [
-  { name: "Domov", icon: FiHome },
-  // { name: "Trending", icon: FiTrendingUp },
-  // { name: "Explore", icon: FiCompass },
-  // { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Domov", icon: FiHome, href: "/dashboard" },
+  { name: "Dodaj", icon: FiPlus, href: "/add-offer" },
+  // { name: "Settings", icon: FiSettings },
 ];
 
 export default function SimpleSidebar({ children }) {
@@ -87,7 +86,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
 
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={link.href}>
           {link.name}
         </NavItem>
       ))}
@@ -109,6 +108,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 const NavItem = ({ icon, children, href, onClick, ...rest }) => {
   return (
     <Link
+      as={NextLink}
       onClick={onClick}
       href={href}
       style={{ textDecoration: "none" }}

@@ -17,6 +17,7 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
+  useToast,
 } from "@chakra-ui/react";
 
 function Register() {
@@ -28,27 +29,50 @@ function Register() {
     password: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const toast = useToast();
 
   const registerHandler = () => {
     // Username length validation
     if (!state.username) {
-      setError("Vnesite veljavno uporabniško ime");
+      toast({
+        title: "Napaka",
+        description: "Vnesite veljavno uporabniško ime",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       return;
     }
 
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!state.email || !emailRegex.test(state.email)) {
-      setError("Vnesite veljaven e-poštni naslov");
+      toast({
+        title: "Napaka",
+        description: "Vnesite veljaven e-poštni naslov",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       return;
     }
 
     // Password length validation
     if (!state.password || state.password.length < 8) {
-      setError("Geslo mora vsebovati vsaj 8 znakov");
+      toast({
+        title: "Napaka",
+        description: "Geslo mora vsebovati vsaj 8 znakov",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       return;
     }
+
+    setIsLoading(true);
 
     axios
       .post("http://localhost/register.php", {
@@ -62,10 +86,22 @@ function Register() {
         const token = res.data.user.token;
         localStorage.setItem("userToken", token);
         dispatch({ type: SET_USER, payload: data });
+
+        router.push("/dashboard");
       })
       .catch((err) => {
         // Handle the error
-        setError(err.response.data.message);
+        toast({
+          title: "Napaka",
+          description: err.response.data.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        return;
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -130,16 +166,13 @@ function Register() {
               onClick={registerHandler}
               colorScheme={"blue"}
               variant={"solid"}
+              isLoading={isLoading}
+              loadingText="Registracija..."
+              disabled={isLoading}
             >
               Registriraj se
             </Button>
           </Stack>
-          {error && (
-            <Alert status="error">
-              <AlertIcon />
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
         </Stack>
       </Flex>
       <Flex flex={1}>
@@ -152,55 +185,6 @@ function Register() {
         />
       </Flex>
     </Stack>
-  );
-
-  return (
-    <React.Fragment>
-      <Navbar />
-      <div>
-        <h1>Register</h1>
-        <input
-          type="text"
-          placeholder="username"
-          value={state.username}
-          onChange={(e) =>
-            setState((prevState) => ({
-              ...prevState,
-              username: e.target.value,
-            }))
-          }
-        />
-        <br />
-        <input
-          type="text"
-          placeholder="email"
-          value={state.email}
-          onChange={(e) =>
-            setState((prevState) => ({
-              ...prevState,
-              email: e.target.value,
-            }))
-          }
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="password"
-          value={state.password}
-          onChange={(e) =>
-            setState((prevState) => ({
-              ...prevState,
-              password: e.target.value,
-            }))
-          }
-        />
-        <br />
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <Link href="/login">Login</Link>
-        <br />
-        <button onClick={registerHandler}>Register</button>
-      </div>
-    </React.Fragment>
   );
 }
 

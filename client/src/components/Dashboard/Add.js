@@ -3,18 +3,28 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   useColorModeValue,
   Textarea,
-  TabPanel,
+  useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { StoreContext } from "@context/StoreContext";
+import axios from "axios";
+import { useContext, useState } from "react";
 
 export default function Add() {
+  const { user } = useContext(StoreContext);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [formData, setFormData] = useState({
+    nativeLanguage: "",
+    learningLanguage: "",
+    availabilityDate: "",
+    availabilityTime: "",
+    description: "",
+  });
+  const toast = useToast();
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
@@ -24,82 +34,148 @@ export default function Add() {
     setSelectedTime(event.target.value);
   };
 
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const clearForm = () => {
+    setSelectedDate("");
+    setSelectedTime("");
+    setFormData({
+      nativeLanguage: "",
+      learningLanguage: "",
+      availabilityDate: "",
+      availabilityTime: "",
+      description: "",
+    });
+  };
+
   const handleSubmit = () => {
-    // Obdelava podatkov in shranjevanje
-    // Lahko dostopate do podatkov: nativeLanguage, learningLanguage, selectedDate
-    // Preverjanje veljavnosti, pošiljanje na strežnik itd.
+    // Preverjanje, ali so vsa polja izpolnjena
+    if (
+      !formData.nativeLanguage ||
+      !formData.learningLanguage ||
+      !selectedDate ||
+      !selectedTime
+    ) {
+      // Obvestilo o manjkajočih podatkih
+      toast({
+        title: "Manjkajoči podatki",
+        description: "Prosimo, izpolnite vsa polja.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    // Preverjanje pravilnosti podatkov (dodatna preverjanja glede na vaše zahteve)
+
+    // Priprava podatkov za pošiljanje
+    const data = {
+      nativeLanguage: formData.nativeLanguage,
+      learningLanguage: formData.learningLanguage,
+      availabilityDate: selectedDate,
+      availabilityTime: selectedTime,
+      description: formData.description,
+      userId: user.id,
+    };
+
+    // Pošiljanje zahteve s pomočjo Axiosa
+    axios
+      .post("http://localhost/language_exchange.php", data)
+      .then((response) => {
+        // Uspešna zahteva
+        toast({
+          title: "Uspešno shranjeni podatki",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        clearForm();
+      })
+      .catch((error) => {
+        // Napaka pri zahtevi
+        toast({
+          title: "Napaka pri shranjevanju podatkov",
+          description: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      });
   };
 
   return (
-    <TabPanel>
-      <Flex
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
+    <Flex
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack
+        spacing={4}
+        w={"full"}
+        maxW={"md"}
+        bg={useColorModeValue("white", "gray.700")}
+        rounded={"xl"}
+        boxShadow={"lg"}
+        p={6}
+        my={12}
       >
-        <Stack
-          spacing={4}
-          w={"full"}
-          maxW={"md"}
-          bg={useColorModeValue("white", "gray.700")}
-          rounded={"xl"}
-          boxShadow={"lg"}
-          p={6}
-          my={12}
+        <FormControl id="nativeLanguage" isRequired>
+          <FormLabel>Jezik 1</FormLabel>
+          <Input
+            placeholder="Vnesi jezik, ki ga govoriš"
+            _placeholder={{ color: "gray.500" }}
+            type="text"
+            value={formData.nativeLanguage}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl id="learningLanguage" isRequired>
+          <FormLabel>Jezik 2</FormLabel>
+          <Input
+            placeholder="Vnesi jezik, ki se ga želiš naučiti"
+            _placeholder={{ color: "gray.500" }}
+            type="text"
+            value={formData.learningLanguage}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl id="availabilityDate" isRequired>
+          <FormLabel>Datum</FormLabel>
+          <Input type="date" value={selectedDate} onChange={handleDateChange} />
+        </FormControl>
+        <FormControl id="availabilityTime" isRequired>
+          <FormLabel>Čas</FormLabel>
+          <Input type="time" value={selectedTime} onChange={handleTimeChange} />
+        </FormControl>
+        <FormControl id="description">
+          <FormLabel>Opis</FormLabel>
+          <Textarea
+            placeholder="Vnesi opis"
+            _placeholder={{ color: "gray.500" }}
+            resize="vertical"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <Button
+          bg={"blue.400"}
+          color={"white"}
+          w="full"
+          _hover={{
+            bg: "blue.500",
+          }}
+          onClick={handleSubmit}
         >
-          <FormControl id="nativeLanguage" isRequired>
-            <FormLabel>Jezik 1</FormLabel>
-            <Input
-              placeholder="Vnesi jezik, ki ga govoriš"
-              _placeholder={{ color: "gray.500" }}
-              type="text"
-            />
-          </FormControl>
-          <FormControl id="learningLanguage" isRequired>
-            <FormLabel>Jezik 2</FormLabel>
-            <Input
-              placeholder="Vnesi jezik, ki se ga želiš naučiti"
-              _placeholder={{ color: "gray.500" }}
-              type="text"
-            />
-          </FormControl>
-          <FormControl id="availabilityDate" isRequired>
-            <FormLabel>Datum</FormLabel>
-            <Input
-              type="date"
-              value={selectedDate}
-              onChange={handleDateChange}
-            />
-          </FormControl>
-          <FormControl id="availabilityTime" isRequired>
-            <FormLabel>Čas</FormLabel>
-            <Input
-              type="time"
-              value={selectedTime}
-              onChange={handleTimeChange}
-            />
-          </FormControl>
-          <FormControl id="description">
-            <FormLabel>Opis</FormLabel>
-            <Textarea
-              placeholder="Vnesi opis"
-              _placeholder={{ color: "gray.500" }}
-              resize="vertical"
-            />
-          </FormControl>
-          <Button
-            bg={"blue.400"}
-            color={"white"}
-            w="full"
-            _hover={{
-              bg: "blue.500",
-            }}
-            onClick={handleSubmit}
-          >
-            Dodaj
-          </Button>
-        </Stack>
-      </Flex>
-    </TabPanel>
+          Dodaj
+        </Button>
+      </Stack>
+    </Flex>
   );
 }
