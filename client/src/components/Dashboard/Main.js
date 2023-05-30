@@ -29,7 +29,7 @@ function Main() {
     <Box flex="1" p="4">
       <Alert status="info" mb="4">
         <AlertIcon />
-        Dobrodošli, {user.username}!
+        Pozdravljeni, {user.username}!
       </Alert>
       {<Component />}
     </Box>
