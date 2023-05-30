@@ -1,4 +1,5 @@
-import Head from "next/head";
+import { useContext } from "react";
+
 import {
   Box,
   Heading,
@@ -11,7 +12,7 @@ import {
   createIcon,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+
 import { StoreContext } from "@context/StoreContext";
 
 export default function Hero() {
@@ -40,7 +41,7 @@ export default function Hero() {
           lineHeight={"110%"}
         >
           Jezikolov - izmenjajte <br />
-          <Text as={"span"} color={"green.400"}>
+          <Text as={"span"} color={"blue.400"}>
             maternje jezike
           </Text>
         </Heading>
@@ -57,12 +58,12 @@ export default function Hero() {
         >
           <Button
             onClick={handleClick}
-            colorScheme={"green"}
-            bg={"green.400"}
+            colorScheme={"blue"}
+            bg={"blue.400"}
             rounded={"full"}
             px={6}
             _hover={{
-              bg: "green.500",
+              bg: "blue.500",
             }}
           >
             {user ? "Nadzorna plošča" : "Prijava"}

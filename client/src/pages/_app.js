@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+
 import { StoreContextProvider } from "@context/StoreContext";
 
 function MyApp({ Component, pageProps }) {

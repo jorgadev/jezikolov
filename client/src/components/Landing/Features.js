@@ -15,7 +15,6 @@ import {
   IoLogoBitcoin,
   IoSearchSharp,
 } from "react-icons/io5";
-import { ReactElement } from "react";
 
 const Feature = ({ text, icon, iconBg }) => {
   return (
@@ -35,24 +34,12 @@ const Feature = ({ text, icon, iconBg }) => {
   );
 };
 
-export default function SplitWithImage() {
+export default function Features() {
   return (
-    <Container maxW={"5xl"} pt={12} pb={48}>
+    <Container maxW={"5xl"} py={24}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
         <Stack spacing={4}>
-          <Text
-            textTransform={"uppercase"}
-            color={"blue.400"}
-            fontWeight={600}
-            fontSize={"sm"}
-            bg={useColorModeValue("blue.50", "blue.900")}
-            p={2}
-            alignSelf={"flex-start"}
-            rounded={"md"}
-          >
-            Naša Zgodba
-          </Text>
-          <Heading>Platforma za izmenjavo jezikov</Heading>
+          <Heading>Medsebojno učenje</Heading>
           <Text color={"gray.500"} fontSize={"lg"}>
             Naša vizija je graditi globalno skupnost, kjer se lahko posamezniki
             medsebojno učijo in izmenjujejo maternje jezike, raziskujejo nove
@@ -76,23 +63,23 @@ export default function SplitWithImage() {
             <Feature
               icon={<Icon as={IoLogoBitcoin} color={"green.500"} w={5} h={5} />}
               iconBg={useColorModeValue("green.100", "green.900")}
-              text={"Kulturna izmenjava"}
+              text={"Možnost zaslužka"}
             />
             <Feature
               icon={
                 <Icon as={IoSearchSharp} color={"purple.500"} w={5} h={5} />
               }
               iconBg={useColorModeValue("purple.100", "purple.900")}
-              text={"Podpora pri učenju"}
+              text={"Raziskovanje"}
             />
           </Stack>
         </Stack>
         <Flex>
           <Image
-            rounded={"md"}
+            rounded={"full"}
             alt={"feature image"}
             src={
-              "https://images.unsplash.com/photo-1554200876-56c2f25224fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
             }
             objectFit={"cover"}
           />

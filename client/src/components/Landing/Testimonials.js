@@ -1,6 +1,6 @@
-import { Avatar, Box, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 
-export default function WithLargeQuote() {
+export default function Testimonials() {
   return (
     <Stack
       bg={useColorModeValue("gray.50", "gray.800")}
@@ -11,7 +11,7 @@ export default function WithLargeQuote() {
       direction={"column"}
     >
       <Text
-        fontSize={{ base: "xl", md: "2xl" }}
+        fontSize={{ base: "m", md: "xl" }}
         textAlign={"center"}
         maxW={"3xl"}
       >
@@ -21,14 +21,6 @@ export default function WithLargeQuote() {
         napredoval v samo nekaj tednih uporabe aplikacije.
       </Text>
       <Box textAlign={"center"}>
-        <Avatar
-          src={
-            "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
-          }
-          alt={"Nikos Papadopulos"}
-          mb={2}
-        />
-
         <Text fontWeight={600}>Nikos Papadopulos</Text>
         <Text fontSize={"sm"} color={useColorModeValue("gray.400", "gray.400")}>
           Uporabnik aplikacije iz Grčije
