@@ -15,7 +15,7 @@ export default function Testimonials() {
         textAlign={"center"}
         maxW={"3xl"}
       >
-        Imela sem neverjetno izkušnjo z aplikacijo Jezikolov, ki mi je izjemno
+        Imel sem neverjetno izkušnjo z aplikacijo Jezikolov, ki mi je izjemno
         pomagala pri učenju angleščine. Kljub temu, da sem iz Grčije in mi je
         angleščina predstavljala izziv, sem bil presenečen, kako učinkovito sem
         napredoval v samo nekaj tednih uporabe aplikacije.
