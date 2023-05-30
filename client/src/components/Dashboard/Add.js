@@ -8,10 +8,20 @@ import {
   useColorModeValue,
   Textarea,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import { StoreContext } from "@context/StoreContext";
 import axios from "axios";
 import { useContext, useState } from "react";
+
+const languageOptions = [
+  "Slovenščina",
+  "Srbščina",
+  "Nemščina",
+  "Angleščina",
+  "Španščina",
+  "Italijanščina",
+];
 
 export default function Add() {
   const { user } = useContext(StoreContext);
@@ -128,23 +138,31 @@ export default function Add() {
       >
         <FormControl id="nativeLanguage" isRequired>
           <FormLabel>Jezik 1</FormLabel>
-          <Input
-            placeholder="Vnesi jezik, ki ga govoriš"
-            _placeholder={{ color: "gray.500" }}
-            type="text"
+          <Select
+            placeholder="Izberi jezik, ki ga govoriš..."
             value={formData.nativeLanguage}
             onChange={handleChange}
-          />
+          >
+            {languageOptions.map((language) => (
+              <option key={language} value={language}>
+                {language}
+              </option>
+            ))}
+          </Select>
         </FormControl>
         <FormControl id="learningLanguage" isRequired>
           <FormLabel>Jezik 2</FormLabel>
-          <Input
-            placeholder="Vnesi jezik, ki se ga želiš naučiti"
-            _placeholder={{ color: "gray.500" }}
-            type="text"
+          <Select
+            placeholder="Izberi jezik, ki se ga želiš naučiti..."
             value={formData.learningLanguage}
             onChange={handleChange}
-          />
+          >
+            {languageOptions.map((language) => (
+              <option key={language} value={language}>
+                {language}
+              </option>
+            ))}
+          </Select>
         </FormControl>
         <FormControl id="availabilityDate" isRequired>
           <FormLabel>Datum</FormLabel>

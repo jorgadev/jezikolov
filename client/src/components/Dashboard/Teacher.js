@@ -9,6 +9,7 @@ import {
   CloseButton,
   useToast,
   TabPanel,
+  Grid,
 } from "@chakra-ui/react";
 import { StoreContext } from "@context/StoreContext";
 
@@ -17,8 +18,6 @@ const Teacher = () => {
   const [offers, setOffers] = useState([]);
   const toast = useToast();
 
-  console.log(offers);
-
   useEffect(() => {
     fetchOffers();
   }, []);
@@ -26,7 +25,7 @@ const Teacher = () => {
   const fetchOffers = async () => {
     try {
       const response = await axios.post(
-        `http://localhost/get_offers.php?user_id=${user.id}`
+        `http://localhost/get_user_offers.php?user_id=${user.id}`
       );
       setOffers(response.data);
     } catch (error) {
@@ -36,7 +35,7 @@ const Teacher = () => {
 
   const removeOffer = async (offerId) => {
     try {
-      await axios.delete(`http://localhost/remove_offer.php?id=${offerId}`);
+      await axios.post(`http://localhost/remove_offer.php?id=${offerId}`);
       fetchOffers();
       toast({
         title: "Ponudba odstranjena",
@@ -52,35 +51,39 @@ const Teacher = () => {
   return (
     <TabPanel>
       <Box>
-        <Heading as="h2" size="lg" mb={4}>
-          Moje ponudbe
-        </Heading>
-        {offers.length > 0 ? (
-          <VStack spacing={4} align="start">
+        {offers && offers.length > 0 ? (
+          <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>
             {offers.map((offer) => (
               <Box
-                position="relative"
                 key={offer.id}
                 borderWidth="1px"
                 borderRadius="lg"
                 p={4}
-                w="100%"
                 boxShadow="sm"
               >
-                <CloseButton
-                  position="absolute"
-                  right={2}
-                  top={2}
-                  onClick={() => removeOffer(offer.id)}
-                />
-                <Heading as="h3" size="md" mb={2}>
-                  {offer.native_language} → {offer.learning_language}
-                </Heading>
-                <Text>Uporabnik: {offer.username}</Text>
-                <Text>{offer.description}</Text>
+                <Box bg={"blue.300"} h={48} mb={4} />
+                <VStack position="relative" spacing={2} align="start">
+                  <CloseButton
+                    position="absolute"
+                    right={0}
+                    top={0}
+                    onClick={() => removeOffer(offer.id)}
+                  />
+                  <Heading as="h3" size="md">
+                    {offer.native_language} → {offer.learning_language}
+                  </Heading>
+                  <Text color="gray.500">Opis ({offer.username}):</Text>
+                  <Text>{offer.description}</Text>
+
+                  <Text color="gray.500">Datum in čas:</Text>
+
+                  <Text>
+                    {`${offer.availability_date}, ${offer.availability_time}`}
+                  </Text>
+                </VStack>
               </Box>
             ))}
-          </VStack>
+          </Grid>
         ) : (
           <Text>Ni dodanih ponudb.</Text>
         )}
