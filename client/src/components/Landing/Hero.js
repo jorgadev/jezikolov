@@ -27,79 +27,69 @@ export default function Hero() {
   };
 
   return (
-    <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
-      <Container maxW={"3xl"}>
-        <Stack
-          as={Box}
-          textAlign={"center"}
-          spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}
+    <Container maxW={"3xl"}>
+      <Stack
+        as={Box}
+        textAlign={"center"}
+        spacing={{ base: 8, md: 14 }}
+        py={{ base: 20, md: 36 }}
+      >
+        <Heading
+          fontWeight={600}
+          fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+          lineHeight={"110%"}
         >
-          <Heading
-            fontWeight={600}
-            fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
-            lineHeight={"110%"}
-          >
-            Jezikolov - izmenjajte <br />
-            <Text as={"span"} color={"green.400"}>
-              maternje jezike
-            </Text>
-          </Heading>
-          <Text color={"gray.500"}>
-            Raziščite svet jezikovnih priložnosti, spoznajte nove kulture in
-            obogatite svoje jezikovne veščine v interaktivni platformi
-            Jezikolov!
+          Jezikolov - izmenjajte <br />
+          <Text as={"span"} color={"green.400"}>
+            maternje jezike
           </Text>
-          <Stack
-            direction={"column"}
-            spacing={3}
-            align={"center"}
-            alignSelf={"center"}
-            position={"relative"}
+        </Heading>
+        <Text color={"gray.500"}>
+          Raziščite svet jezikovnih priložnosti, spoznajte nove kulture in
+          obogatite svoje jezikovne veščine v interaktivni platformi Jezikolov!
+        </Text>
+        <Stack
+          direction={"column"}
+          spacing={3}
+          align={"center"}
+          alignSelf={"center"}
+          position={"relative"}
+        >
+          <Button
+            onClick={handleClick}
+            colorScheme={"green"}
+            bg={"green.400"}
+            rounded={"full"}
+            px={6}
+            _hover={{
+              bg: "green.500",
+            }}
           >
-            <Button
-              onClick={handleClick}
-              colorScheme={"green"}
-              bg={"green.400"}
-              rounded={"full"}
-              px={6}
-              _hover={{
-                bg: "green.500",
-              }}
+            {user ? "Nadzorna plošča" : "Prijava"}
+          </Button>
+          <Box>
+            <Icon
+              as={Arrow}
+              color={useColorModeValue("gray.800", "gray.300")}
+              w={71}
+              position={"absolute"}
+              right={-71}
+              top={"10px"}
+            />
+            <Text
+              fontSize={"lg"}
+              fontFamily={"Caveat"}
+              position={"absolute"}
+              right={"-125px"}
+              top={"-15px"}
+              transform={"rotate(10deg)"}
             >
-              {user ? "Nadzorna plošča" : "Prijava"}
-            </Button>
-            <Box>
-              <Icon
-                as={Arrow}
-                color={useColorModeValue("gray.800", "gray.300")}
-                w={71}
-                position={"absolute"}
-                right={-71}
-                top={"10px"}
-              />
-              <Text
-                fontSize={"lg"}
-                fontFamily={"Caveat"}
-                position={"absolute"}
-                right={"-125px"}
-                top={"-15px"}
-                transform={"rotate(10deg)"}
-              >
-                {user ? "Pojdi v jezikolov!" : "Brezplačno!"}
-              </Text>
-            </Box>
-          </Stack>
+              {user ? "Pojdi v jezikolov!" : "Brezplačno!"}
+            </Text>
+          </Box>
         </Stack>
-      </Container>
-    </>
+      </Stack>
+    </Container>
   );
 }
 
