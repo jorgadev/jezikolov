@@ -16,6 +16,7 @@ import {
   Image,
   useToast,
 } from "@chakra-ui/react";
+import { API_URL } from "@constants/constants";
 
 function Register() {
   const router = useRouter();
@@ -70,7 +71,7 @@ function Register() {
 
     setIsLoading(true);
     axios
-      .post("http://localhost/register.php", {
+      .post(`${API_URL}/register.php`, {
         username: state.username,
         email: state.email,
         password: state.password,

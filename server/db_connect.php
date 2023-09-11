@@ -8,10 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
   exit;
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jezikolov_db";
+$env = parse_ini_file(".env");
+
+$servername = $env["SERVERNAME"];
+$username = $env["USERNAME"];
+$password = $env["PASSWORD"];
+$dbname = $env["DBNAME"];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

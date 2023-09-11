@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import { USER_LOGIN, USER_LOGOUT, SET_USER } from "@constants/dispatchActions";
 import axios from "axios";
+import { API_URL } from "@constants/constants";
 
 export const StoreContext = createContext();
 
@@ -27,7 +28,7 @@ export const StoreContextProvider = ({ children }) => {
 
     if (userToken) {
       axios
-        .get("http://localhost/user.php", {
+        .get(`${API_URL}/user.php`, {
           params: { token: userToken },
           headers: {
             "Content-Type": "application/json",

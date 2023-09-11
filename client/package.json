@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "start": "next dev"
+    "start": "node server.js"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",

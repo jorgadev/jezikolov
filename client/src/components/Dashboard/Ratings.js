@@ -10,6 +10,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { StoreContext } from "@context/StoreContext";
+import { API_URL } from "@constants/constants";
 
 function Ratings() {
   const { user } = useContext(StoreContext);
@@ -20,7 +21,7 @@ function Ratings() {
 
   const fetchRatings = () => {
     axios
-      .get("http://localhost/average_ratings.php")
+      .get(`${API_URL}/average_ratings.php`)
       .then((response) => {
         setRatings(response.data);
       })
@@ -32,7 +33,7 @@ function Ratings() {
   useEffect(() => {
     // Pridobitev podatkov o uporabnikih
     axios
-      .get(`http://localhost/users.php?user_id=${user.id}`)
+      .get(`${API_URL}/users.php?user_id=${user.id}`)
       .then((response) => {
         setUsers(response.data);
       })
@@ -54,7 +55,7 @@ function Ratings() {
   const handleVote = (userId, ratedUserId, rating) => {
     // Pošiljanje ocene na strežnik
     axios
-      .post("http://localhost/rate.php", {
+      .post(`${API_URL}/rate.php`, {
         user_id: userId,
         rated_user_id: ratedUserId,
         rating: rating,

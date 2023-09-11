@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import { StoreContext } from "@context/StoreContext";
+import { API_URL } from "@constants/constants";
 
 const Student = () => {
   const { user } = useContext(StoreContext);
@@ -24,7 +25,7 @@ const Student = () => {
   const fetchOffers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost/get_available_offers.php?user_id=${user.id}`
+        `${API_URL}/get_available_offers.php?user_id=${user.id}`
       );
       setOffers(response.data);
     } catch (error) {
@@ -34,7 +35,7 @@ const Student = () => {
 
   const reserveOffer = async (offerId) => {
     try {
-      const response = await axios.post("http://localhost/reserve_offer.php", {
+      const response = await axios.post(`${API_URL}/reserve_offer.php`, {
         id: offerId,
         user_id: user.id,
       });
@@ -52,7 +53,7 @@ const Student = () => {
 
   const cancelReservation = async (offerId) => {
     try {
-      await axios.post("http://localhost/cancel_reservation.php", {
+      await axios.post(`${API_URL}/cancel_reservation.php`, {
         id: offerId,
       });
       fetchOffers();

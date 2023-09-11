@@ -10,6 +10,7 @@ import {
   useToast,
   Select,
 } from "@chakra-ui/react";
+import { API_URL } from "@constants/constants";
 import { StoreContext } from "@context/StoreContext";
 import axios from "axios";
 import { useContext, useState } from "react";
@@ -91,7 +92,7 @@ export default function Add() {
     };
 
     axios
-      .post("http://localhost/language_exchange.php", data)
+      .post(`${API_URL}/language_exchange.php`, data)
       .then((response) => {
         toast({
           title: "Uspešno shranjeni podatki",

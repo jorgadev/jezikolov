@@ -17,6 +17,7 @@ import NextLink from "next/link";
 
 import { StoreContext } from "@context/StoreContext";
 import { SET_USER } from "@constants/dispatchActions";
+import { API_URL } from "@constants/constants";
 
 function Login() {
   const router = useRouter();
@@ -57,7 +58,7 @@ function Login() {
 
     setIsLoading(true);
     axios
-      .post("http://localhost/login.php", {
+      .post(`${API_URL}/login.php`, {
         email: state.email,
         password: state.password,
       })
